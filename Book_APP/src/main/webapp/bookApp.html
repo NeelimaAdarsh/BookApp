@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html data-ng-app="booksapp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Book App</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<style>
+form {
+	text-align: center;
+}
+
+body {
+	background-color: #eee;
+}
+
+*[role="form"] {
+	max-width: 530px;
+	padding: 15px;
+	margin: 0 auto;
+	background-color: #fff;
+	border-radius: 0.3em;
+}
+
+*[role="form"] h2 {
+	margin-left: 5em;
+	margin-bottom: 1em;
+}
+</style>
+
+<script>
+	var bookApp = angular.module('booksapp', []);
+
+	bookApp.controller('booksListController', function($scope, $http) {
+		var configObj = {
+			"headers" : {
+				"Accept" : "application/json"
+			}
+		};
+		var httpObj = $http.get('/books', configObj).then(function(response) {
+			var data = response.data;
+			var status = response.status;
+			var statusText = response.statusText;
+			var headers = response.headers;
+			var config = response.config;
+
+			$scope.booksdata = response.data;
+			console.log(booksdata);
+		});
+	});
+
+	bookApp.controller('addBookController', function($scope) {
+
+	});
+
+	bookApp.controller('updateBookController', function($scope) {
+
+	});
+
+	bookApp.controller('deleteBookController', function($scope) {
+
+	});
+</script>
+
+<body>
+
+
+	<div data-ng-controller="booksListController" class="row">
+		<div class="row-md-12" style="background-color: lavenderblush;">
+			<span data-ng-repeat="books in booksdata"> <b>{{books.title}}</b>
+				<b>{{books.authorname}}</b>
+			</span>
+		</div>
+
+	</div>
+
+
+	<div data-ng-controller="addBookController">
+		<div class="container">
+			<form class="form-horizontal" role="form">
+				<h3>Add Book Details</h3>
+
+				<div class="form-group">
+					<label for="titleName" class="col-sm-3 control-label">Book
+						Title</label>
+					<div class="col-sm-9">
+						<input type="text" id="title" data-ng-model="titleName"
+							class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="authorName" class="col-sm-3 control-label">Author</label>
+					<div class="col-sm-9">
+						<input type="text" id="author" data-ng-model="authorName"
+							class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="publisherName" class="col-sm-3 control-label">
+						Publisher</label>
+					<div class="col-sm-9">
+						<input type="text" id="publisher" data-ng-model="publisherName"
+							class="form-control">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="publisherName" class="col-sm-3 control-label">Cost
+					</label>
+					<div class="col-sm-9">
+						<input type="text" id="cost" data-ng-model="price"
+							class="form-control">
+					</div>
+				</div>
+
+				<input type="submit"
+					style="font-face: 'Comic Sans MS'; font-size: larger; color: teal; background-color: #FFFFC0; border: 3pt ridge lightgrey"
+					name="add" value=" ADD " data-ng-click="addFunction()">
+			</form>
+
+		</div>
+
+		<div data-ng-controller="updateBookController"></div>
+		<input type="submit"
+			style="font-face: 'Comic Sans MS'; font-size: larger; color: teal; background-color: #FFFFC0; border: 3pt ridge lightgrey"
+			name="update" value=" Update">
+
+		<div data-ng-controller="deleteBookController">
+			<input type="submit"
+				style="font-face: 'Comic Sans MS'; font-size: larger; color: teal; background-color: #FFFFC0; border: 3pt ridge lightgrey"
+				name="delete" value=" Delete ">
+		</div>
+
+	</div>
+
+</body>
+</html>
